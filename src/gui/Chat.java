@@ -85,6 +85,8 @@ public class Chat extends javax.swing.JFrame implements CallBackMessage {
     private void btnEnviarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEnviarActionPerformed
         String message = txtMensagem.getText();
         cliente.sendMessage(message);
+        
+        appendMessage(message);
     }//GEN-LAST:event_btnEnviarActionPerformed
 
     /**

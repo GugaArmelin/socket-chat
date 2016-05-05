@@ -16,8 +16,7 @@ public class Cliente {
     
         //lê o ip e a porta do servidor
         ipServidor = JOptionPane.showInputDialog(null, "Insira o IP do servidor","127.0.0.1");
-        porta      = Integer.parseInt(JOptionPane.showInputDialog(null, "Insira a porta do servidor","7000"));
-        
+        porta      = Integer.parseInt(JOptionPane.showInputDialog(null, "Insira a porta do servidor","7000"));  
     }
     
     public void sendMessage(String msg) {
