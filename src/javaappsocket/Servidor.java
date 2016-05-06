@@ -24,11 +24,12 @@ public class Servidor {
             serv = new ServerSocket(porta);
             System.out.println("Servidor escutando na porta "+porta+"...");
             s = serv.accept();
+
             entrada = new BufferedReader(new InputStreamReader(s.getInputStream()));
             String dados = entrada.readLine();
             while (dados.indexOf("sair") == -1){
                 if(dados != null){
-                    cbm.appendMessage(dados);
+                    cbm.appendMessage("[" + s.getInetAddress().getHostName() + "]: " +dados);
                 }
                 s.close();
                 s = serv.accept();

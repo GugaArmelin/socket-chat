@@ -6,7 +6,7 @@
 package gui;
 
 import interfaces.CallBackMessage;
-import java.net.Socket;
+import java.awt.event.KeyEvent;
 import javaappsocket.Cliente;
 import javaappsocket.Servidor;
 
@@ -44,6 +44,11 @@ public class Chat extends javax.swing.JFrame implements CallBackMessage {
         jScrollPane1.setViewportView(pnMensagens);
 
         txtMensagem.setActionCommand("");
+        txtMensagem.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtMensagemKeyPressed(evt);
+            }
+        });
 
         btnEnviar.setText("Enviar");
         btnEnviar.setActionCommand("");
@@ -83,12 +88,26 @@ public class Chat extends javax.swing.JFrame implements CallBackMessage {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnEnviarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEnviarActionPerformed
-        String message = txtMensagem.getText();
-        cliente.sendMessage(message);
-        
-        appendMessage(message);
+        sendText();
     }//GEN-LAST:event_btnEnviarActionPerformed
 
+    private void txtMensagemKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtMensagemKeyPressed
+        if( evt.getKeyCode() == KeyEvent.VK_ENTER ) {
+            sendText();
+        }  
+    }//GEN-LAST:event_txtMensagemKeyPressed
+
+    private void sendText() {
+        String message = txtMensagem.getText();
+        if( message.equals("") ) return;
+        
+        cliente.sendMessage(message);
+        
+        appendMessage("[Você]: " + message);
+        txtMensagem.setText("");  
+        txtMensagem.requestFocus();
+    }
+    
     /**
      * @param args the command line arguments
      */
@@ -120,11 +139,9 @@ public class Chat extends javax.swing.JFrame implements CallBackMessage {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                
                 chat.setVisible(true);
                 
                 chat.cliente = new Cliente();
-
             }
         });
         
@@ -142,7 +159,7 @@ public class Chat extends javax.swing.JFrame implements CallBackMessage {
         String old = pnMensagens.getText();
         
         pnMensagens.setText(old + message + "\n");
+        pnMensagens.setCaretPosition(pnMensagens.getDocument().getLength());
     }
-
 
 }
