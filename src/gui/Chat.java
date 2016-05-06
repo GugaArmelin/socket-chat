@@ -140,12 +140,19 @@ public class Chat extends javax.swing.JFrame implements CallBackMessage {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 chat.setVisible(true);
-                
                 chat.cliente = new Cliente();
             }
         });
         
-        new Servidor(chat);
+        new Thread(){
+            @Override
+            public void run() {
+                new Servidor(chat);
+            }
+        }.start();
+        
+
+
     }
     private Cliente cliente;
     
