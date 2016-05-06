@@ -135,7 +135,7 @@ public class Chat extends javax.swing.JFrame implements CallBackMessage {
         }
         //</editor-fold>
 
-        final Chat chat = new Chat();
+        Chat chat = new Chat();
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
