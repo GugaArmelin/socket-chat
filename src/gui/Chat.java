@@ -32,16 +32,14 @@ public class Chat extends javax.swing.JFrame implements CallBackMessage {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        javax.swing.JScrollPane jScrollPane1 = new javax.swing.JScrollPane();
-        pnMensagens = new javax.swing.JTextPane();
         txtMensagem = new javax.swing.JTextField();
         javax.swing.JButton btnEnviar = new javax.swing.JButton();
+        javax.swing.JScrollPane jScrollPane1 = new javax.swing.JScrollPane();
+        txtMensagens = new javax.swing.JTextArea();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Chat");
         setResizable(false);
-
-        pnMensagens.setEditable(false);
-        jScrollPane1.setViewportView(pnMensagens);
 
         txtMensagem.setActionCommand("");
         txtMensagem.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -57,6 +55,13 @@ public class Chat extends javax.swing.JFrame implements CallBackMessage {
                 btnEnviarActionPerformed(evt);
             }
         });
+
+        txtMensagens.setEditable(false);
+        txtMensagens.setColumns(20);
+        txtMensagens.setLineWrap(true);
+        txtMensagens.setRows(5);
+        txtMensagens.setWrapStyleWord(true);
+        jScrollPane1.setViewportView(txtMensagens);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -85,6 +90,7 @@ public class Chat extends javax.swing.JFrame implements CallBackMessage {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnEnviarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEnviarActionPerformed
@@ -135,12 +141,13 @@ public class Chat extends javax.swing.JFrame implements CallBackMessage {
         }
         //</editor-fold>
 
-        Chat chat = new Chat();
+        final Chat chat = new Chat();
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                chat.setVisible(true);
                 chat.cliente = new Cliente();
+                chat.setVisible(true);
+                chat.txtMensagem.requestFocus();
             }
         });
         
@@ -150,23 +157,18 @@ public class Chat extends javax.swing.JFrame implements CallBackMessage {
                 new Servidor(chat);
             }
         }.start();
-        
-
-
     }
     private Cliente cliente;
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    javax.swing.JTextPane pnMensagens;
     javax.swing.JTextField txtMensagem;
+    javax.swing.JTextArea txtMensagens;
     // End of variables declaration//GEN-END:variables
 
     @Override
     public void appendMessage(String message) {
-        String old = pnMensagens.getText();
-        
-        pnMensagens.setText(old + message + "\n");
-        pnMensagens.setCaretPosition(pnMensagens.getDocument().getLength());
+        txtMensagens.append(message + "\n");
+        txtMensagens.setCaretPosition(txtMensagens.getText().length());
     }
 
 }
